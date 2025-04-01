@@ -21,7 +21,7 @@ module.exports = {
         // primaryKey: true,
         references: {
           model: 'ropas',
-          key: 'id_ropa'
+          key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'

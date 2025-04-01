@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+
+<body>
+  <%- include("partials/header") -%>
+
+  <%- include("partials/menu") -%>
+
+  <div class="container mt-4">
+  <h1 class="mb-4">Buscar Ropa por ID</h1>
+    <form id="idForm" class="mb-4">
+      <div class="row">
+        <div class="col-md-4">
+          <input type="number" id="fotoId" class="form-control" placeholder="Ingrese ID">
+        </div>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary">Buscar por ID</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="container mt-4">
+    <h1 class="mb-4">Buscar Ropa por Rango de Precio</h1>
+    <form id="rateForm" class="mb-4">
+      <div class="row">
+        <div class="col-md-4">
+          <input type="number" step="0.1" id="lower" class="form-control" placeholder="Valor mínimo">
+        </div>
+        <div class="col-md-4">
+          <input type="number" step="0.1" id="higher" class="form-control" placeholder="Valor máximo">
+        </div>
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary">Buscar por Rango de Precio</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="container-fluid p-4">
+    <h1 class="pb-4">
+      <%= title %> 
+      <button id="showAll" class="btn btn-primary">Mostrar Todo</button>
+    </h1>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Talla</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% arrRopas.forEach((ropas)=> { %>
+          <tr>
+            <td><%= ropas.id %></td>
+            <td><%= ropas.nombre %></td>
+            <td><%= ropas.tipo %></td>
+            <td><%= ropas.talla %></td>
+            <td><%= ropas.precio %></td>
+          </tr>
+          <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document.getElementById('rateForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const lower = document.getElementById('lower').value;
+      const higher = document.getElementById('higher').value;
+      window.location.href = `/ropas/findAllByRange/json?lower=${lower}&higher=${higher}`;
+    });
+
+    document.getElementById('idForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const id = document.getElementById('fotoId').value;
+      window.location.href = `/ropas/findAllById/${id}/json`;
+    });
+
+    document.getElementById('showAll').addEventListener('click', function() {
+      window.location.href = '/ropas/findAll/view';
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+  <!-- Feather Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+    crossorigin="anonymous"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+    integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

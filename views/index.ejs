@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <%- include("partials/menu") -%>
+  <h1>
+    <%= title %> 
+    <button id="showAll" class="btn btn-primary">Ver Ropas</button>
+  </h1>
+  <p>Welcome to <%= title %>
+  </p>
+  <script>
+    document.getElementById('showAll').addEventListener('click', function () {
+      window.location.href = '/ropas/findAll/view';
+    });
+  </script>
+</body>
+
 </html>
