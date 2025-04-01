@@ -27,7 +27,7 @@ router.get('/findAllByRange/json', function (req, res, next) {
   let higher = parseFloat(req.query.higher);
 
   Ropas.findAll({
-    attributes: { exclude: ['id','createdAt','updatedAt'] },
+    attributes: { exclude: ['createdAt','updatedAt'] },
     where: { precio: { [Op.between]: [lower, higher] }}
   })
     .then(ropas => {
@@ -40,8 +40,8 @@ router.get('/findAllByRange/json', function (req, res, next) {
 router.get('/findAllById/:id/json', function (req, res, next) {
   let id = parseInt(req.params.id);
 
-  Ropas.findAll({attributes: { exclude: ['id','createdAt','updatedAt'] },
-    where: { [Op.and]: [{id_ropa: id}] }
+  Ropas.findAll({attributes: { exclude: ['createdAt','updatedAt'] },
+    where: { [Op.and]: [{id: id}] }
   })
     .then(ropas => {
       res.render('ropas', { title: 'Ropas', arrRopas: ropas });
