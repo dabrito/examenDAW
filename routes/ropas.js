@@ -41,13 +41,11 @@ router.get('/findAllById/:id/json', function (req, res, next) {
   let id = parseInt(req.params.id);
 
   Ropas.findAll({attributes: { exclude: ['createdAt','updatedAt'] },
-    where: { [Op.and]: [{id: id}] }
-  })
-    .then(ropas => {
-      res.render('ropas', { title: 'Ropas', arrRopas: ropas });
-    })
-    .catch(error =>
-      res.status(400).send(error))
+    where: { id: id }
+  }).then(ropas => {
+    if (ropas.length === 0) return res.status(404).json([]);
+    res.json(ropas);
+  }).catch(error => res.status(400).send(error));
 });
 
 module.exports = router;
